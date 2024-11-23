@@ -4,7 +4,7 @@
   </a>
 
 <h3 align="center">EX Machina - CTF</h3>
-<h4>Created by: DOOM Agent Division</h4>
+<h4>Created by(Group name): DOOM Agent Division</h4>
 
 
 <h2>Overview</h2>
@@ -20,7 +20,9 @@ This MAS automates the process of reconnaissance, and crafting exploits as part 
 <li>Python-based exploitation scripts tailored for specific vulnerabilities.</li></ul>
 
 <em>This autonomous system is designed to assist in vulnerability research and educational purposes, showcasing the power of agent-driven cybersecurity automation.<em>
-
+<br>
+<br>
+<br>
 
 <h2>Features</h2>
 Multi-Agent Architecture:
@@ -32,6 +34,8 @@ Fine-Tuned LLM Models:
 <ul><li>Agents are powered by OpenAI’s GPT-3.5-Turbo and GPT-4 for high-accuracy vulnerability detection and exploit crafting.</li></ul>
 Autonomous Workflows:
 <ul><li>Agents communicate seamlessly to complete complex tasks without human intervention.</li></ul>
+<br>
+<br>
 
 <h2>Installation</h2>
 <strong>Prerequisites:</strong>
@@ -40,4 +44,19 @@ Autonomous Workflows:
 <li>Required Python libraries</li>
 <li>AutoGen Framework</li></ul>
 </p>
+<br>
+
+## Marrja e projektit
+
+### Klononi Repositorin
+
+```sh
+git clone git@github.com:EndritKastrati/EX-Machina-CTF.git 
+```
+
+
+### Punuan:
+  - Endrit Kastrati, Olt Vrella, Olsa Rama, Yll Berisha, Kaltrina Kurtaj.
+
+<a href="#top">Shko në fillim ↑</a>
 

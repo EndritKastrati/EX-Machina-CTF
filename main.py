@@ -1,8 +1,8 @@
 import os
 import autogen
-from autogen import ConversableAgent,AssistentAgent,UserProxyAgent
+from autogen import ConversableAgent,AssistantAgent,UserProxyAgent,register_function
 from autogen.coding import DockerCommandLineCodeExecutor,LocalCommandLineCodeExecutor
-import requests
+from crawler import scrapingtool
 
 llm_config_gpt4={
 	'cache_seed':None,
@@ -34,7 +34,7 @@ ReconAgent=ConversableAgent(
 
 SumAgent=ConversableAgent(
  	"SUMAGENT",
-	system_msg=recon_agent_sysy_msg,
+	system_message=recon_agent_sysy_msg,
 	max_consecutive_auto_reply=5,
 	human_input_mode ='NEVER',
 	llm_config=llm_config_gpt35_turbo,
@@ -43,15 +43,15 @@ SumAgent=ConversableAgent(
 	)
 
 exploit_crafter_sys_msg="""
- You are the master command injection exploit crafter. Ensure to adhere to the following principles:
+ You are the master Server Side Request Forgery exploit crafter. Ensure to adhere to the following principles:
  -Return only the python code in three backticks (```).
  -Ensure to only execute whoami
- -Include 10 different and unique command injecrion payloads
+ -Include 10 different and unique command injection payloads
  -Return only the python code in three backticks (```).
  """
 exploit_crafter_Agent= ConversableAgent(
  	"EXPLOITCRAFTAGENT",
- 	system_msg=exploit_crafter_sys_msg,
+ 	system_message=exploit_crafter_sys_msg,
 	max_consecutive_auto_reply=5,
 	human_input_mode ='NEVER',
 	llm_config=llm_config_gpt4,
@@ -70,9 +70,6 @@ executor_Agent= ConversableAgent(
 	default_auto_reply="..."
  	)
 
-def scrapingtool(url:str):
-	response= requests.get(url)
-	return(response.text)
 
 register_function(
 	scrapingtool,
@@ -84,7 +81,7 @@ register_function(
 
 recon_chat=SumAgent.initiate_chat(
 	ReconAgent,
-	message=f"Can you scrape {target} for me?",
+	message=f"Can you scrape for me?",
 	max_turns=2
 	)
 
@@ -92,6 +89,6 @@ result=recon_chat[2]['content']
 
 exploit_chat= executor_Agent.initiate_chat(
 	exploit_crafter_Agent,
-	meesage=f"Based on this context: {str(result)}, I need you to write a python exploit",
+	mesage=f"Based on this context: {str(result)}, I need you to write a python exploit",
 	max_turns=2
 	)

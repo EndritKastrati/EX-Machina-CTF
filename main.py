@@ -2,18 +2,19 @@ import os
 import autogen
 from autogen import ConversableAgent,AssistentAgent,UserProxyAgent
 from autogen.coding import DockerCommandLineCodeExecutor,LocalCommandLineCodeExecutor
+import requests
 
 llm_config_gpt4={
 	'cache_seed':None,
-	"config_list":[{"model":"gpt-4o","api_key":os.environ["OPENAI_API_KEY"]}]
+	"config_list":[{"model":"gpt-4o","api_key":os.environ["OPENAI_API_KEY"]}],
 
 	'temperature':0.1,
-	'timeout'
+	'timeout' :6000
 }
 
 llm_config_gpt35_turbo={
 	'cache_seed':None,
-	"config_list":[{"model":"gpt-3.5-turbo","api_key":os.environ["OPENAI_API_KEY"]}]
+	"config_list":[{"model":"gpt-3.5-turbo","api_key":os.environ["OPENAI_API_KEY"]}],
 	'temperature':0.1,
 	'timeout':6000
 }
@@ -31,7 +32,7 @@ ReconAgent=ConversableAgent(
 	is_termination_msg=lambda x: x.get("content","").rstrip().endswith("TERMINATE"),
 	)
 
- SumAgent=ConversableAgent(
+SumAgent=ConversableAgent(
  	"SUMAGENT",
 	system_msg=recon_agent_sysy_msg,
 	max_consecutive_auto_reply=5,
@@ -41,14 +42,14 @@ ReconAgent=ConversableAgent(
 	default_auto_reply="..."
 	)
 
- exploit_crafter_sys_msg="""
+exploit_crafter_sys_msg="""
  You are the master command injection exploit crafter. Ensure to adhere to the following principles:
  -Return only the python code in three backticks (```).
  -Ensure to only execute whoami
  -Include 10 different and unique command injecrion payloads
  -Return only the python code in three backticks (```).
  """
- exploit_crafter_Agent= ConversableAgent(
+exploit_crafter_Agent= ConversableAgent(
  	"EXPLOITCRAFTAGENT",
  	system_msg=exploit_crafter_sys_msg,
 	max_consecutive_auto_reply=5,

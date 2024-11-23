@@ -1,4 +1,3 @@
 __pycache__/
 coding/
-
-*.pyc
+__pycache__/crawler.cpython-312.pyc

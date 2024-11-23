@@ -43,6 +43,7 @@ SumAgent=ConversableAgent(
 
 exploit_crafter_sys_msg="""
  You are the master Server Side Request Forgery exploit crafter. Ensure to adhere to the following principles:
+ -Use the target URL in payloads
  -Return only the python code in three backticks (```).
  -Ensure to find /etc/passwd
  -Include 10 different and unique SSRF payloads
@@ -83,7 +84,7 @@ register_function(
 
 recon_chat=SumAgent.initiate_chat(
 	ReconAgent,
-	message="Can you scrape http://13.36.65.25:32784/ for me?",
+	message="Can you scrape http://13.36.65.25:32784/ and also find input fields.",
 	max_turns=2
 	)
 
@@ -92,6 +93,6 @@ print(result)
 
 exploit_chat= executor_Agent.initiate_chat(
 	exploit_crafter_Agent,
-	message=f"Based on this context: {str(result)}, I need you to write a python exploit- Target: http://13.36.65.25:32784",
+	message=f"I need you to write a python exploit on the target based on this context: {str(result)},  - Target: http://13.36.65.25:32784",
 	max_turns=2
 	)

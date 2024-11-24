@@ -42,12 +42,12 @@ SumAgent=ConversableAgent(
 	)
 
 exploit_crafter_sys_msg="""
- You are the master Server Side Request Forgery exploit crafter. Ensure to adhere to the following principles:
- -Use the target URL in payloads
- -Return only the python code in three backticks (```).
- -Ensure to find /etc/passwd
- -Include 10 different and unique SSRF payloads
- -Return only the python code in three backticks (```).
+   - You are the master of data exfiltration and you are doing blind sql to get the information schema of the database.
+   - The goal is to exploit this vulnerability in an input field.
+   - Consider the form structure and provide any necessary strategies, payloads, or techniques that could be used to exfiltrate data.
+   - The database commonly is MySQL, start with it.
+   - If payloads get flaged try to obfuscate them.
+   - Return only the necessary strategy and payloads.
  """
 exploit_crafter_Agent= ConversableAgent(
  	"EXPLOITCRAFTAGENT",
@@ -71,7 +71,7 @@ executor_Agent= ConversableAgent(
  	)
 
 def scrapingtool():
-	response= requests.get('http://13.36.65.25:32784/')
+	response= requests.get('http://13.36.65.25:8080/search.php')
 	return(response.text)
 
 register_function(
@@ -79,20 +79,23 @@ register_function(
 	caller=ReconAgent,
 	executor=SumAgent,
 	name='scrape_page',
-	description="Scrape a web page and return the content"
+	description="Scrape a page and return the content"
 	)
+
+
 
 recon_chat=SumAgent.initiate_chat(
 	ReconAgent,
-	message="Can you scrape http://13.36.65.25:32784/ and also find input fields.",
+	message="Can you scrape http://13.36.65.25:80808/search.php and also find input fields.",
 	max_turns=2
 	)
 
 result=recon_chat.chat_history[2]['content']
-print(result)
+
 
 exploit_chat= executor_Agent.initiate_chat(
 	exploit_crafter_Agent,
-	message=f"I need you to write a python exploit on the target based on this context: {str(result)},  - Target: http://13.36.65.25:32784",
-	max_turns=2
+	message=f"I need you to write a python exploit on the target based on this context: {str(result)},  - Target: http://13.36.65.25:8080/search.php",
+	max_turns=4
+
 	)

@@ -55,8 +55,7 @@ git clone git@github.com:EndritKastrati/EX-Machina-CTF.git
 ```
 
 
-### Punuan:
-  - Endrit Kastrati, Olt Vrella, Olsa Rama, Yll Berisha, Kaltrina Kurtaj.
+
 
 <a href="#top">Shko në fillim ↑</a>
 
